@@ -3,8 +3,8 @@
 # <bitbar.title>Clipboard</bitbar.title>
 # <bitbar.author>tsmh (darg20127@gmail.com)</bitbar.author>
 # <bitbar.author.github>tsmh</bitbar.author.github>
-# <bitbar.desc>Track up to 50 clipboard history or save as snippet.
-# <bitbar.version>1.0</bitbar.version></bitbar.desc>
+# <bitbar.desc>Track up to 50 clipboard history or save as snippet.</bitbar.desc>
+# <bitbar.version>1.0</bitbar.version>
 
 # Environment
 export LANG="${LANG:-en_US.UTF-8}"
