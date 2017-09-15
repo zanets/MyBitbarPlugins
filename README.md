@@ -10,7 +10,33 @@ This plugin track clipboard history up to 50 and group every 10 items just like 
 
 If you have some text that will be used frequently, you can store it in snippet. Snippet will keep exist until manually delete.
 
-![Imgur Image](https://imgur.com/CeIW5Dz.gif)
+### vocabulary-words.1h
+Because I am easy to forget (or too lazy) to open my vocabulary word book. So there it is.
+
+![Imgur Image](https://imgur.com/sVBbnBV.jpg)
+
+By default, it randomly choose 10 words every 24 hours from ~/.Bitbar/vocabulary-words/dictionary. 
+
+The format of dictionary is
+
+1th word | any description
+
+2th word | any description
+
+...
+
+e.g. my dictionary:
+
+abbreviate | v. 縮短、縮寫
+
+aberrant | a. 越軌、異常的
+
+...
+
+
+
+
+
 
 
 
