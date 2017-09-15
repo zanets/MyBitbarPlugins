@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # <bitbar.title>Clipboard</bitbar.title>
