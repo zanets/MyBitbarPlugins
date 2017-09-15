@@ -40,6 +40,11 @@ refresh () {
     update_refresh
 }
 
+if [[ $1 = "force-refresh" ]]; then
+    refresh
+    exit
+fi
+
 if [[ -e $LATEST_REFRESH_FILE ]]; then
     latest_refresh="$(< ${LATEST_REFRESH_FILE})"
     if (($CURRENT_TIME - $latest_refresh >= $PERIOD)); then
@@ -49,10 +54,6 @@ else
     refresh
 fi
 
-latest_refresh="$(< ${LATEST_REFRESH_FILE})"
-LATEST_REFRESH_DATE=$(date -r ${latest_refresh} +"%Y/%m/%d %H:%M:%S")
-echo "Refreshed at ${LATEST_REFRESH_DATE}"
-
 while read line; do
     en=$(echo "${line}" | cut -d'|' -f1)
     ch=$(echo "${line}" | cut -d'|' -f2)
@@ -60,15 +61,8 @@ while read line; do
     echo "-- ${ch} | color=deepskyblue"
 done < ${LIST_FILE}
 
-
-
-
-
-
-    
-
-
-
-
-
-
+latest_refresh="$(< ${LATEST_REFRESH_FILE})"
+LATEST_REFRESH_DATE=$(date -r ${latest_refresh} +"%Y/%m/%d %H:%M:%S")
+echo '---'
+echo "Refreshed at ${LATEST_REFRESH_DATE}"
+echo "Force refresh | color=green param1=force-refresh refresh=true terminal=false bash='$0'"
