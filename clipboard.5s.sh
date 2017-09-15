@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # <bitbar.title>Clipboard</bitbar.title>
@@ -9,11 +10,11 @@
 # Environment
 export LANG="${LANG:-en_US.UTF-8}"
 
-HIST_DIR="/tmp/BitBar/Store/History"
+HIST_DIR="/tmp/BitBar/Clipboard/History"
 HIST_MIN=0
 HIST_MAX=49
 
-SNIP_DIR="$HOME/.BitBar/Store/Snippets"
+SNIP_DIR="$HOME/.BitBar/Clipboard/Snippets"
 SNIP_MIN=0
 SNIP_MAX=49
 
