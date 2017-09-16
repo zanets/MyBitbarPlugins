@@ -55,8 +55,8 @@ else
 fi
 
 while read line; do
-    en=$(echo "${line}" | cut -d'|' -f1)
-    ch=$(echo "${line}" | cut -d'|' -f2)
+    en=$(echo "${line}" | cut -d'-' -f1)
+    ch=$(echo "${line}" | cut -d'-' -f2)
     echo "${en}"
     echo "-- ${ch} | color=deepskyblue"
 done < ${LIST_FILE}
