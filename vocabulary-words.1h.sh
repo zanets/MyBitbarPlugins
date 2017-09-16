@@ -40,10 +40,16 @@ refresh () {
     update_refresh
 }
 
-if [[ $1 = "force-refresh" ]]; then
-    refresh
-    exit
-fi
+case "$1" in
+    "force-refresh")  
+        refresh
+        exit
+    ;;
+    "copy") 
+        echo "$2" | pbcopy
+        exit
+    ;;
+esac
 
 if [[ -e $LATEST_REFRESH_FILE ]]; then
     latest_refresh="$(< ${LATEST_REFRESH_FILE})"
@@ -57,7 +63,7 @@ fi
 while read line; do
     en=$(echo "${line}" | cut -d'-' -f1)
     ch=$(echo "${line}" | cut -d'-' -f2)
-    echo "${en}"
+    echo "${en} | param1=copy param2=${en} refresh=false terminal=false bash='$0'"
     echo "-- ${ch} | color=deepskyblue"
 done < ${LIST_FILE}
 
