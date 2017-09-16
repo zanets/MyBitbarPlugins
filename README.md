@@ -17,6 +17,8 @@ Because I am easy to forget (or too lazy) to open my vocabulary word book. So th
 
 By default, it randomly choose 10 words every 24 hours from ~/.Bitbar/vocabulary-words/dictionary. 
 
+Each word is clickable that copy to clipboard.
+
 The format of dictionary is
 
 1th word - any description
