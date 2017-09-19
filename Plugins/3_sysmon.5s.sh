@@ -10,13 +10,20 @@ END
     exit 0
 fi
 
+TEMPERATURE=$(/usr/local/bin/smc -k TC0P -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
+TEMP_INTEGER=${TEMPERATURE%.*}
+
+if (( $TEMP_INTEGER == 0 )); then
+    TEMPERATURE=$(/usr/local/bin/smc -k TC0D -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
+    TEMP_INTEGER=${TEMPERATURE%.*}
+fi
+
 OLDIFS=$IFS
 width=25
 
 IFS=$'\n'
 topdata=($(top -F -R -l2 -o cpu -n 5 -s 2 -stats pid,command,cpu,mem))
 nlines=${#topdata[@]}
-    
 IFS=$OLDIFS
 for ((i = nlines / 2; i < nlines; i++)); do
     line=(${topdata[$i]})
@@ -51,8 +58,7 @@ else
     color="red"
 fi
 
-TEMPERATURE=$(/usr/local/bin/smc -k TC0D -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
-TEMP_INTEGER=${TEMPERATURE%.*}
+
 
 echo "$usage% $TEMP_INTEGER°c | color=$color"
 echo "---"
