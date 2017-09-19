@@ -51,10 +51,10 @@ else
     color="red"
 fi
 
-TEMPERATURE=$(/usr/local/bin/smc -k TC0P -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
+TEMPERATURE=$(/usr/local/bin/smc -k TC0D -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
 TEMP_INTEGER=${TEMPERATURE%.*}
 
-echo "$usage% / $TEMP_INTEGER | color=$color"
+echo "$usage% $TEMP_INTEGER°c | color=$color"
 echo "---"
 echo "CPU: $cpu_user user, $cpu_sys sys, $cpu_idle idle | refresh=true"
 echo "$loadstr | refresh=true"
