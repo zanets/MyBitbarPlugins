@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SMC="$HOME/.bitbar/bin/smc"
+
 if [ "$1" = 'activity_monitor' ]; then
     osascript << END
     tell application "Activity Monitor"
@@ -10,11 +12,11 @@ END
     exit 0
 fi
 
-TEMPERATURE=$(/usr/local/bin/smc -k TC0P -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
+TEMPERATURE=$($SMC -k TC0P -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
 TEMP_INTEGER=${TEMPERATURE%.*}
 
 if (( $TEMP_INTEGER == 0 )); then
-    TEMPERATURE=$(/usr/local/bin/smc -k TC0D -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
+    TEMPERATURE=$($SMC -k TC0D -r | sed 's/.*bytes \(.*\))/\1/' |sed 's/\([0-9a-fA-F]*\)/0x\1/g' | perl -ne 'chomp; ($low,$high) = split(/ /); print (((hex($low)*256)+hex($high))/4/64); print "\n";')
     TEMP_INTEGER=${TEMPERATURE%.*}
 fi
 

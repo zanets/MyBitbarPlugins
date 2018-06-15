@@ -1,9 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-mkdir -p ~/.Bitbar/Plugins/
+BITBAR_DIR=$HOME/.bitbar/
+PLUGINS_DIR=$BITBAR_DIR/plugins/
+BIN_DIR=$BITBAR_DIR/bin/
+APPDATA_DIR=$BITBAR_DIR/appdata/
 
-[ -x "$(command -v smc)" ] || ( curl -LO http://www.eidac.de/smcfancontrol/smcfancontrol_2_4.zip \
-  && unzip -d temp_dir_smc smcfancontrol_2_4.zip \
-  && cp temp_dir_smc/smcFanControl.app/Contents/Resources/smc /usr/local/bin/smc ; rm -rf temp_dir_smc smcfancontrol_2_4.zip )
+[ -d $PLUGINS_DIR ] || mkdir -p $PLUGINS_DIR
+[ -d $BIN_DIR ] || mkdir -p $BIN_DIR
+[ -d $APPDATA_DIR ] || mkdir -p $APPDATA_DIR
 
-ln -s $(pwd)/Plugins/*.sh ~/.Bitbar/Plugins
+cp -r $(pwd)/plugins/* $PLUGINS_DIR
+cp -r $(pwd)/bin/* $BIN_DIR
+cp -r $(pwd)/appdata/* $APPDATA_DIR

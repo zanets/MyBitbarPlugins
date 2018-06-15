@@ -9,11 +9,11 @@
 # Environment
 export LANG="${LANG:-en_US.UTF-8}"
 
-HIST_DIR="/tmp/Bitbar/Clipboard/History"
+HIST_DIR="/tmp/bitbar/2_clipboard/history"
 HIST_MIN=0
 HIST_MAX=49
 
-SNIP_DIR="$HOME/.Bitbar/Clipboard/Snippets"
+SNIP_DIR="$HOME/.bitbar/appdata/2_clipboard/snippets"
 SNIP_MIN=0
 SNIP_MAX=49
 
@@ -27,30 +27,30 @@ notify () {
 }
 
 # Copy file content to clipboard
-if [[ $1 = "copy" ]]; then
+if [[ $1 == "copy" ]]; then
   if [[ -e $2 ]]; then
     pbcopy < "$2"
-    notify "Copied to Clipboard."
+    # notify "Copied to Clipboard."
   fi
   exit
 fi
 
 # Delete all history
-if [[ $1 = "clear-hist" ]]; then
+if [[ $1 == "clear-hist" ]]; then
   pbcopy < /dev/null
   rm -f "$HIST_DIR"/item-*.pb
-  notify "Cleared clipboard history."
+  # notify "Cleared clipboard history."
   exit
 fi
 
 # Store snippets
-if [[ $1 = "store-snip" ]]; then
+if [[ $1 == "store-snip" ]]; then
   # Find a number which has not been used.
   for i in $(seq $SNIP_MIN $SNIP_MAX); do
     file="$SNIP_DIR/item-$i.pb"
     if [[ ! -e $file ]]; then
       echo "$(pbpaste)" > "$file"
-      notify "Snippet stored."
+      # notify "Snippet stored."
       exit
     fi
   done
@@ -60,9 +60,9 @@ if [[ $1 = "store-snip" ]]; then
 fi
 
 # Delete all snippets
-if [[ $1 = "clear-snip" ]]; then
+if [[ $1 == "clear-snip" ]]; then
   rm -f "$SNIP_DIR"/item-*.pb
-  notify "Cleared snippets."
+  # notify "Cleared snippets."
   exit
 fi
 
@@ -80,7 +80,7 @@ if [[ $cbContent != "" ]]; then
   echo ""$cbContent" | param1=store-snip length=$LENGTH terminal=false bash='$0' refresh=true"
 
   echo "$cbContent" | diff "$HIST_DIR/item-$HIST_MIN.pb" - &> /dev/null
-  if [ "$?" != "0" ]; then
+  if [[ $? != 0 ]]; then
     # Move previous history backwards
     for i in $(seq $HIST_MAX $HIST_MIN); do
       file="$HIST_DIR/item-$i.pb"
