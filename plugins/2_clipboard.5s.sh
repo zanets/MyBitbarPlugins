@@ -49,7 +49,7 @@ if [[ $1 == "store-snip" ]]; then
   for i in $(seq $SNIP_MIN $SNIP_MAX); do
     file="$SNIP_DIR/item-$i.pb"
     if [[ ! -e $file ]]; then
-      echo "$(pbpaste)" > "$file"
+      printf "$(pbpaste)" > "$file"
       # notify "Snippet stored."
       exit
     fi
@@ -79,7 +79,7 @@ if [[ $cbContent != "" ]]; then
   # @addItem
   echo ""$cbContent" | param1=store-snip length=$LENGTH terminal=false bash='$0' refresh=true"
 
-  echo "$cbContent" | diff "$HIST_DIR/item-$HIST_MIN.pb" - &> /dev/null
+  printf "$cbContent" | diff "$HIST_DIR/item-$HIST_MIN.pb" - &> /dev/null
   if [[ $? != 0 ]]; then
     # Move previous history backwards
     for i in $(seq $HIST_MAX $HIST_MIN); do
@@ -88,7 +88,7 @@ if [[ $cbContent != "" ]]; then
     done
   
     # Store to minimum number
-    echo "$cbContent" > "$HIST_DIR/item-$HIST_MIN.pb"
+    printf "$cbContent" > "$HIST_DIR/item-$HIST_MIN.pb"
   fi
 fi
 
