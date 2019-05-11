@@ -9,6 +9,6 @@ APPDATA_DIR=$BITBAR_DIR/appdata/
 [ -d $BIN_DIR ] || mkdir -p $BIN_DIR
 [ -d $APPDATA_DIR ] || mkdir -p $APPDATA_DIR
 
-cp -r $(pwd)/plugins/* $PLUGINS_DIR
-cp -r $(pwd)/bin/* $BIN_DIR
-cp -r $(pwd)/appdata/* $APPDATA_DIR
+ln -s $(pwd)/plugins/* $PLUGINS_DIR
+ln -s $(pwd)/bin/* $BIN_DIR
+ln -s $(pwd)/appdata/* $APPDATA_DIR
