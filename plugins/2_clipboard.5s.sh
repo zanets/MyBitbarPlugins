@@ -79,7 +79,7 @@ if [[ $cbContent != "" ]]; then
   # @addItem
   echo ""$cbContent" | param1=store-snip length=$LENGTH terminal=false bash='$0' refresh=true"
 
-  printf "$cbContent" | diff "$HIST_DIR/item-$HIST_MIN.pb" - &> /dev/null
+  echo -n "$cbContent" | diff "$HIST_DIR/item-$HIST_MIN.pb" - &> /dev/null
   if [[ $? != 0 ]]; then
     # Move previous history backwards
     for i in $(seq $HIST_MAX $HIST_MIN); do
@@ -88,7 +88,7 @@ if [[ $cbContent != "" ]]; then
     done
   
     # Store to minimum number
-    printf "$cbContent" > "$HIST_DIR/item-$HIST_MIN.pb"
+    echo -n "$cbContent" > "$HIST_DIR/item-$HIST_MIN.pb"
   fi
 fi
 
